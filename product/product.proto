@@ -1,0 +1,92 @@
+// Copyright 2015 Frank Yu <imzhixun@gmail.com>.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+syntax = "proto3";
+
+option go_package = "ifrankyu.org/product";
+
+package product;
+
+// The greeting service definition.
+service Product {
+  // 添加产品
+  rpc AddProduct (AddProductRequest) returns (AddProductResponse) {
+  }
+
+  // 删除产品
+  rpc DeleteProduct (DeleteProductRequest) returns (EmptyResponse) {
+  }
+
+  // 根据产品ID查询产品详情
+  rpc QueryProductInfo (QueryProductRequest) returns (ProductInfoResponse) {
+
+  }
+
+  // 查询所有产品详情
+  rpc QueryProductsInfo (EmptyRequest) returns (ProductsInfoResponse) {
+
+  }
+}
+
+// The request message containing the user's name.
+message AddProductRequest {
+  enum Classfication {
+      FRUIT = 0;
+      MEAT = 1;
+      STAPLE = 2;
+      TOILETRIES = 3;
+      DRESS = 4;
+  }
+  string productName = 1;
+  Classfication classification = 2;
+  string manufacturerID = 3;
+  double weight = 4;
+  int64 productionDate = 5;
+}
+
+message AddProductResponse {
+  string productID = 1;
+  string message = 2;
+}
+
+// 删除产品message
+message DeleteProductRequest {
+  string productID = 1;
+}
+
+message QueryProductRequest {
+  string productID = 1;
+}
+
+// 单产品详情message
+message ProductInfoResponse {
+  string productName = 1;
+  string productID = 2;
+  string manufacturerID = 3;
+  double weight = 4;
+  int64 productionDate = 5;
+  int64 importDate = 6;
+}
+
+message ProductsInfoResponse {
+  repeated ProductInfoResponse infos = 1;
+}
+
+message EmptyRequest {
+
+}
+
+message EmptyResponse {
+
+}
